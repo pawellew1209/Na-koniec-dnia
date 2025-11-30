@@ -53,6 +53,7 @@
         const Clock = (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>;
         const AlertTriangle = (p) => <IconBase {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></IconBase>;
         const RefreshCcw = (p) => <IconBase {...p}><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></IconBase>;
+        const Database = (p) => <IconBase {...p}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></IconBase>;
         
         // Kalendarzowe & Inne
         const CalendarIcon = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconBase>;
@@ -100,8 +101,9 @@
             'Języki': <Languages size={16} />
         };
 
-        const hours = Array.from({ length: 16 }, (_, i) => i + 7);
+        const hours = Array.from({ length: 16 }, (_, i) => i + 7); // 7:00 - 22:00
 
+        // Domyślne aktywności (tylko na start)
         const DEFAULT_ACTIVITIES_LIST = [
           { id: 'uni', name: 'Nauka własna', iconKey: 'Nauka', category: 'Obowiązki', color: '#3b82f6' },
           { id: 'eng', name: 'Język Angielski', iconKey: 'Języki', category: 'Rozwój', color: '#8b5cf6' },
@@ -133,9 +135,19 @@
         // --- KOMPONENTY UI ---
         const DurationInput = ({ value, onChange, placeholder, isBad }) => {
             const { h, m } = fromMinutes(value);
-            const handleH = (e) => onChange(Math.max(0, parseInt(e.target.value) || 0) * 60 + m);
-            const handleM = (e) => onChange(h * 60 + Math.max(0, Math.min(59, parseInt(e.target.value) || 0)));
+            
+            const handleH = (e) => {
+                const newH = Math.max(0, parseInt(e.target.value) || 0);
+                onChange(newH * 60 + m);
+            };
+            
+            const handleM = (e) => {
+                const newM = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
+                onChange(h * 60 + newM);
+            };
+
             const bgClass = isBad ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200 focus-within:border-blue-400';
+
             return (
                 <div className={`flex items-center border rounded-md px-1 py-0.5 ${bgClass} w-24 mx-auto`}>
                     <input 
@@ -162,14 +174,12 @@
         };
 
         // --- FUNKCJE DATY ---
-
         const toLocalISOString = (date) => {
           const y = date.getFullYear();
           const m = String(date.getMonth() + 1).padStart(2, '0');
           const d = String(date.getDate()).padStart(2, '0');
           return `${y}-${m}-${d}`;
         };
-
         const getMonday = (d) => {
           const date = new Date(d);
           const day = date.getDay();
@@ -178,19 +188,8 @@
           date.setHours(0, 0, 0, 0);
           return date;
         };
-
-        const formatDate = (date) => {
-          return date.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
-      };
-
-        const getMonthName = (date) => {
-            return date.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' });
-        };
-
-        const getWeekId = (date) => {
-          return toLocalISOString(date); 
-        };
-
+        const formatDate = (date) => date.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
+        const getMonthName = (date) => date.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' });
         const addDays = (date, days) => {
           const result = new Date(date);
           result.setDate(result.getDate() + days);
@@ -200,14 +199,7 @@
         // --- KOMPONENT WYKRESU KOŁOWEGO ---
         const SimplePieChart = ({ data }) => {
             const total = data.reduce((acc, item) => acc + item.value, 0);
-            
-            if (total === 0) return (
-                <div className="flex flex-col items-center justify-center h-40 text-gray-400 text-xs">
-                    <div className="w-24 h-24 rounded-full border-4 border-gray-100 mb-2"></div>
-                    Brak danych
-                </div>
-            );
-
+            if (total === 0) return <div className="flex flex-col items-center justify-center h-40 text-gray-400 text-xs"><div className="w-24 h-24 rounded-full border-4 border-gray-100 mb-2"></div>Brak danych</div>;
             let currentAngle = 0;
             const gradientParts = data.map(item => {
                 const percentage = (item.value / total) * 100;
@@ -216,7 +208,6 @@
                 currentAngle = end;
                 return `${item.color} ${start}% ${end}%`;
             });
-
             return (
                 <div className="flex flex-col sm:flex-row items-center gap-6 justify-center">
                     <div 
@@ -226,13 +217,8 @@
                     <div className="space-y-1.5 w-full max-w-xs">
                         {data.map(item => (
                             <div key={item.label} className="flex items-center justify-between text-xs">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: item.color }}></span>
-                                    <span className="text-gray-700 font-medium">{item.label}</span>
-                                </div>
-                                <div className="text-gray-500">
-                                    {formatDuration(item.value)} <span className="text-gray-300 ml-1">({Math.round(item.value / total * 100)}%)</span>
-                                </div>
+                                <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: item.color }}></span><span className="text-gray-700 font-medium">{item.label}</span></div>
+                                <div className="text-gray-500">{formatDuration(item.value)} <span className="text-gray-300 ml-1">({Math.round(item.value / total * 100)}%)</span></div>
                             </div>
                         ))}
                     </div>
@@ -241,17 +227,19 @@
         };
 
         // --- GŁÓWNY KOMPONENT ---
-
         function WeeklyPlanner() {
           const [activeTab, setActiveTab] = useState('tracker'); 
           const [currentWeekStart, setCurrentWeekStart] = useState(getMonday(new Date()));
+          const [selectedDayIso, setSelectedDayIso] = useState(null);
           const [showGoalModal, setShowGoalModal] = useState(false);
           const [showManageModal, setShowManageModal] = useState(false);
           const [showEventModal, setShowEventModal] = useState(false);
-          const [selectedEvent, setSelectedEvent] = useState(null); // DO SZCZEGÓŁÓW
-          const [editingEvent, setEditingEvent] = useState(null); // DO EDYCJI
+          const [showDataModal, setShowDataModal] = useState(false); // Modal Bazy Danych
+          const [selectedEvent, setSelectedEvent] = useState(null);
+          const [editingEvent, setEditingEvent] = useState(null);
           const [debugInfo, setDebugInfo] = useState(null);
           const fileInputRef = useRef(null);
+          const backupInputRef = useRef(null);
 
           // --- STATE ---
           const [activities, setActivities] = useState(() => {
@@ -277,6 +265,7 @@
               return saved ? JSON.parse(saved) : [];
           });
 
+          // Zapisywanie
           useEffect(() => { localStorage.setItem('plannerActivities', JSON.stringify(activities)); }, [activities]);
           useEffect(() => { localStorage.setItem('plannerData_v3', JSON.stringify(trackerData)); }, [trackerData]);
           useEffect(() => { localStorage.setItem('plannerGoals', JSON.stringify(goalsConfig)); }, [goalsConfig]);
@@ -315,7 +304,7 @@
                 }
           };
 
-          // --- OBSŁUGA ZDARZEŃ (DODAWANIE I EDYCJA) ---
+          // --- OBSŁUGA ZDARZEŃ ---
           const handleEventSubmit = (e) => {
               e.preventDefault();
               const formData = new FormData(e.target);
@@ -333,17 +322,13 @@
                   const duration = (endDateObj - startDateObj) / (1000 * 60 * 60);
 
                   if (duration > 0) {
-                      const newEventData = { 
-                          name, start: startDateObj.toISOString(), duration, color, isManual: true 
-                      };
-
+                      const newEventData = { name, start: startDateObj.toISOString(), duration, color, isManual: true };
                       if (editingEvent) {
-                          // Aktualizacja istniejącego
-                          setManualEvents(manualEvents.map(ev => ev.id === editingEvent.id ? { ...ev, ...newEventData } : ev));
-                          setEditingEvent(null);
-                          setSelectedEvent(null); // Zamknij też widok szczegółów
+                          const isManual = manualEvents.find(ev => ev.id === editingEvent.id);
+                          if (isManual) setManualEvents(manualEvents.map(ev => ev.id === editingEvent.id ? { ...ev, ...newEventData } : ev));
+                          else setAllEvents(allEvents.map(ev => ev.id === editingEvent.id ? { ...ev, ...newEventData, color: color } : ev));
+                          setEditingEvent(null); setSelectedEvent(null);
                       } else {
-                          // Dodawanie nowego
                           setManualEvents([...manualEvents, { id: 'manual_' + Date.now(), ...newEventData }]);
                       }
                       setShowEventModal(false);
@@ -351,18 +336,55 @@
               }
           };
 
-          const openEditModal = (evt) => {
-              setEditingEvent(evt);
-              setShowEventModal(true);
+          const openEditModal = (evt) => { setEditingEvent(evt); setShowEventModal(true); };
+          const removeManualEvent = (id) => { if(confirm("Usunąć to zdarzenie?")) { setManualEvents(manualEvents.filter(e => e.id !== id)); setSelectedEvent(null); } };
+
+          // --- KOPIA ZAPASOWA ---
+          const handleExportData = () => {
+              const data = {
+                  activities: localStorage.getItem('plannerActivities'),
+                  trackerData: localStorage.getItem('plannerData_v3'),
+                  goals: localStorage.getItem('plannerGoals'),
+                  events: localStorage.getItem('allEvents_v2'),
+                  manualEvents: localStorage.getItem('plannerManualEvents'),
+                  backupDate: new Date().toISOString()
+              };
+              const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = `planner_backup_${new Date().toLocaleDateString('pl-PL').replace(/\./g,'-')}.json`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              setShowDataModal(false);
           };
 
-          const removeManualEvent = (id) => {
-              if(confirm("Usunąć to zdarzenie?")) {
-                  setManualEvents(manualEvents.filter(e => e.id !== id));
-                  setSelectedEvent(null);
-              }
+          const handleImportData = (event) => {
+              const file = event.target.files[0];
+              if (!file) return;
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                  try {
+                      const data = JSON.parse(e.target.result);
+                      if (confirm("UWAGA: Przywrócenie kopii zapasowej NADPISZE wszystkie obecne dane. Czy kontynuować?")) {
+                          if(data.activities) { localStorage.setItem('plannerActivities', data.activities); setActivities(JSON.parse(data.activities)); }
+                          if(data.trackerData) { localStorage.setItem('plannerData_v3', data.trackerData); setTrackerData(JSON.parse(data.trackerData)); }
+                          if(data.goals) { localStorage.setItem('plannerGoals', data.goals); setGoalsConfig(JSON.parse(data.goals)); }
+                          if(data.events) { localStorage.setItem('allEvents_v2', data.events); setAllEvents(JSON.parse(data.events)); }
+                          if(data.manualEvents) { localStorage.setItem('plannerManualEvents', data.manualEvents); setManualEvents(JSON.parse(data.manualEvents)); }
+                          alert("Pomyślnie przywrócono dane!");
+                          setShowDataModal(false);
+                      }
+                  } catch (err) {
+                      alert("Błąd podczas wczytywania pliku: " + err.message);
+                  }
+              };
+              reader.readAsText(file);
+              event.target.value = null; 
           };
 
+          // Import ICS
           const handleFileUpload = (event) => {
             const file = event.target.files[0]; if (!file) return; event.target.value = null;
             const reader = new FileReader();
@@ -384,7 +406,7 @@
                             if (k==='DTSTART') currentEvent.startRaw = v;
                             if (k==='DTEND') currentEvent.endRaw = v;
                             if (k==='SUMMARY') currentEvent.summary = v;
-                            if (k==='LOCATION') currentEvent.location = v; // Obsługa lokalizacji
+                            if (k==='LOCATION') currentEvent.location = v;
                         }
                     }
                 });
@@ -396,7 +418,7 @@
                 };
                 const parsedEvents = events.map(evt => {
                     const s = parseICSDate(evt.startRaw); const e = parseICSDate(evt.endRaw);
-                    if(s) return { id: evt.id, name: evt.summary || 'Bez tytułu', start: s.toISOString(), duration: e ? (e-s)/3600000 : 1.5, location: evt.location }; // Dodano location
+                    if(s) return { id: evt.id, name: evt.summary || 'Bez tytułu', start: s.toISOString(), duration: e ? (e-s)/3600000 : 1.5, location: evt.location, color: '#3b82f6' }; 
                     return null;
                 }).filter(Boolean);
                 if (parsedEvents.length > 0) { setAllEvents(prev => [...prev, ...parsedEvents]); alert(`Dodano ${parsedEvents.length} wydarzeń.`); }
@@ -410,17 +432,39 @@
               return [...allEvents, ...manualEvents].filter(evt => { const evtStart = new Date(evt.start); return evtStart >= dayStart && evtStart <= dayEnd; }).map(evt => ({ ...evt, startHour: new Date(evt.start).getHours(), startMin: new Date(evt.start).getMinutes() }));
           };
 
+          // Statystyki
           const calculateWeeklyTotal = (activityId) => currentDays.reduce((acc, day) => acc + getTrackerValue(activityId, day.iso), 0);
+          
           const calculateMonthlyTotal = (activityId, currentMonthDate) => {
               let sum = 0; const tm = currentMonthDate.getMonth(); const ty = currentMonthDate.getFullYear();
-              Object.keys(trackerData).forEach(key => { const parts = key.split('_'); if (parts.length === 2 && parts[1] === activityId) { const date = new Date(parts[0]); if (date.getMonth() === tm && date.getFullYear() === ty) sum += (trackerData[key] || 0); } });
+              Object.keys(trackerData).forEach(key => { 
+                  const parts = key.split('_'); 
+                  if (parts.length === 2 && parts[1] === activityId) { 
+                      const date = new Date(parts[0]); 
+                      if (date.getMonth() === tm && date.getFullYear() === ty) sum += (trackerData[key] || 0); 
+                  } 
+              });
               return sum;
           };
-          const calculateAllTimeTotal = (activityId) => { let sum = 0; Object.keys(trackerData).forEach(key => { const parts = key.split('_'); if (parts.length === 2 && parts[1] === activityId) sum += (parseFloat(trackerData[key]) || 0); }); return sum; };
+
+          const calculateAllTimeTotal = (activityId) => { 
+              let sum = 0; 
+              Object.keys(trackerData).forEach(key => { 
+                  const parts = key.split('_'); 
+                  if (parts.length === 2 && parts[1] === activityId) sum += (parseFloat(trackerData[key]) || 0); 
+              }); 
+              return sum; 
+          };
 
           const changeWeek = (offset) => setCurrentWeekStart(prev => addDays(prev, offset * 7));
           const goToToday = () => setCurrentWeekStart(getMonday(new Date()));
-          const clearCalendar = () => { if(confirm("Wyczyścić import?")) setAllEvents([]); };
+          
+          const clearCalendar = () => { 
+              if(confirm("Czy na pewno chcesz usunąć wszystkie wydarzenia z kalendarza?")) { 
+                  setAllEvents([]); 
+                  setManualEvents([]); 
+              } 
+          };
 
           const SummaryBar = ({ label, plan, act, isPhone }) => {
               const percentage = plan > 0 ? (act / plan) * 100 : 0;
@@ -436,6 +480,8 @@
 
           return (
             <div className="max-w-7xl mx-auto p-2 sm:p-4 bg-gray-50 min-h-screen font-sans">
+              
+              {/* GÓRNY PASEK */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-4 p-4 sticky top-0 z-20">
                   <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                       <div className="flex items-center gap-4">
@@ -453,16 +499,56 @@
                             <button onClick={() => setActiveTab('summary')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 whitespace-nowrap ${activeTab === 'summary' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<BarChart3 size={16} />} /> Raporty</button>
                           </div>
                           <button onClick={() => setShowGoalModal(true)} className="ml-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"><IconWrapper icon={<Target size={18} />} /> Cele</button>
+                          <button onClick={() => setShowDataModal(true)} className="bg-gray-700 hover:bg-gray-800 text-white px-3 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"><IconWrapper icon={<Download size={18} />} /> Dane</button>
                       </div>
                   </div>
               </div>
+
+              {/* MODAL: DANE (BACKUP) */}
+              {showDataModal && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+                      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
+                          <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
+                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<Download size={20} />} /> Zarządzanie Danymi</h3>
+                              <button onClick={() => setShowDataModal(false)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
+                          </div>
+                          <div className="p-6 space-y-6">
+                              <div className="bg-blue-50 text-blue-800 p-3 rounded text-sm">
+                                  Zrób kopię zapasową swoich danych, aby ich nie stracić przy czyszczeniu przeglądarki lub zmianie urządzenia.
+                              </div>
+                              
+                              <div className="space-y-2">
+                                  <h4 className="font-bold text-sm text-gray-700">Eksport (Zapisz na dysku)</h4>
+                                  <button onClick={handleExportData} className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-bold flex items-center justify-center gap-2">
+                                      <IconWrapper icon={<Save size={18}/>} /> Pobierz kopię zapasową
+                                  </button>
+                              </div>
+
+                              <div className="space-y-2 border-t pt-4">
+                                  <h4 className="font-bold text-sm text-gray-700">Import (Przywróć z dysku)</h4>
+                                  <p className="text-xs text-gray-500 mb-2">Uwaga: To nadpisze obecne dane w planerze.</p>
+                                  <input 
+                                      type="file" 
+                                      accept=".json" 
+                                      ref={backupInputRef}
+                                      className="hidden"
+                                      onChange={handleImportData}
+                                  />
+                                  <button onClick={() => backupInputRef.current.click()} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-bold flex items-center justify-center gap-2">
+                                      <IconWrapper icon={<Upload size={18}/>} /> Wgraj kopię zapasową
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              )}
 
               {/* MODAL: SZCZEGÓŁY ZDARZENIA */}
               {selectedEvent && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
                     <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden">
                         <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
-                            <h3 className="font-bold text-lg text-gray-800">Szczegóły zdarzenia</h3>
+                            <h3 className="font-bold text-lg text-gray-800">Szczegóły</h3>
                             <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
                         </div>
                         <div className="p-6 space-y-4">
@@ -488,12 +574,8 @@
                             )}
                         </div>
                         <div className="p-4 border-t bg-gray-50 flex justify-end gap-2">
-                            {selectedEvent.isManual && (
-                                <>
-                                    <button onClick={() => openEditModal(selectedEvent)} className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Edit2 size={16}/>} /> Edytuj</button>
-                                    <button onClick={() => removeManualEvent(selectedEvent.id)} className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Trash2 size={16}/>} /> Usuń</button>
-                                </>
-                            )}
+                            <button onClick={() => openEditModal(selectedEvent)} className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Edit2 size={16}/>} /> Edytuj</button>
+                            {selectedEvent.isManual && <button onClick={() => removeManualEvent(selectedEvent.id)} className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Trash2 size={16}/>} /> Usuń</button>}
                             <button onClick={() => setSelectedEvent(null)} className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold">Zamknij</button>
                         </div>
                     </div>
@@ -539,12 +621,12 @@
                   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
                       <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
                           <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
-                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<CalendarPlus size={20} />} /> {editingEvent ? 'Edytuj Zdarzenie' : 'Dodaj Zdarzenie'}</h3>
+                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<CalendarPlus size={20} />} /> {editingEvent ? 'Edytuj Wydarzenie' : 'Dodaj Wydarzenie'}</h3>
                               <button onClick={() => {setShowEventModal(false); setEditingEvent(null);}} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
                           </div>
                           <form onSubmit={handleEventSubmit} className="p-6 space-y-4">
                               <div><label className="block text-xs font-bold text-gray-500 mb-1">Nazwa</label><input required name="name" defaultValue={editingEvent?.name} type="text" className="w-full border rounded p-2"/></div>
-                              <div><label className="block text-xs font-bold text-gray-500 mb-1">Data</label><input required name="date" defaultValue={editingEvent ? toLocalISOString(new Date(editingEvent.start)) : toLocalISOString(new Date())} type="date" className="w-full border rounded p-2"/></div>
+                              <div><label className="block text-xs font-bold text-gray-500 mb-1">Data</label><input required name="date" defaultValue={selectedDayIso || (editingEvent ? toLocalISOString(new Date(editingEvent.start)) : toLocalISOString(new Date()))} type="date" className="w-full border rounded p-2"/></div>
                               <div className="grid grid-cols-2 gap-2">
                                   <div><label className="block text-xs font-bold text-gray-500 mb-1">Od</label><input required name="start" defaultValue={editingEvent ? formatTime(editingEvent.start) : "12:00"} type="time" className="w-full border rounded p-2"/></div>
                                   <div><label className="block text-xs font-bold text-gray-500 mb-1">Do</label><input required name="end" defaultValue={editingEvent ? formatTime(new Date(new Date(editingEvent.start).getTime() + editingEvent.duration * 3600000)) : "13:30"} type="time" className="w-full border rounded p-2"/></div>
@@ -677,13 +759,13 @@
                               <p>Zarządzaj swoimi zajęciami i planem.</p>
                           </div>
                           <div className="flex gap-2 flex-wrap">
-                              <button onClick={() => {setEditingEvent(null); setShowEventModal(true);}} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm flex items-center gap-2 transition-colors"><IconWrapper icon={<Plus size={14} />} /> Dodaj Zdarzenie</button>
+                              <button onClick={() => {setEditingEvent(null); setShowEventModal(true);}} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm flex items-center gap-2 transition-colors"><IconWrapper icon={<Plus size={14} />} /> Dodaj Wydarzenie</button>
                               <div className="w-px h-8 bg-blue-200 mx-2 hidden sm:block"></div>
                               <input type="file" accept=".ics" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
                               <button onClick={() => fileInputRef.current.click()} className="bg-white text-blue-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-blue-200 flex items-center gap-2 hover:bg-blue-50">
                                   <IconWrapper icon={<Upload size={14} />} /> Wgraj ICS
                               </button>
-                              {allEvents.length > 0 && (
+                              {(allEvents.length > 0 || manualEvents.length > 0) && (
                                   <button onClick={clearCalendar} className="bg-white text-red-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-red-200 flex items-center gap-2 hover:bg-red-50">
                                     <IconWrapper icon={<Trash2 size={14} />} /> Wyczyść Kalendarz
                                   </button>
@@ -695,10 +777,15 @@
                           {currentDays.map(day => {
                               const events = getEventsForDay(day.iso);
                               const busyHours = events.reduce((acc, curr) => acc + curr.duration, 0);
+                              const isSelected = selectedDayIso === day.iso;
                               
                               return (
-                                  <div key={day.iso} className={`bg-white rounded-xl shadow-sm border ${day.dateObj.toDateString() === new Date().toDateString() ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-200'} flex flex-col h-full min-h-[400px]`}>
-                                      <div className="p-3 border-b border-gray-100 text-center bg-gray-50/50 rounded-t-xl">
+                                  <div 
+                                    key={day.iso} 
+                                    onClick={() => setSelectedDayIso(day.iso)}
+                                    className={`bg-white rounded-xl shadow-sm border flex flex-col h-full min-h-[400px] transition-colors cursor-pointer ${isSelected ? 'border-blue-500 ring-2 ring-blue-100 bg-blue-50/20' : 'border-gray-200'}`}
+                                  >
+                                      <div className={`p-3 border-b text-center rounded-t-xl ${isSelected ? 'bg-blue-100 border-blue-200' : 'bg-gray-50/50 border-gray-100'}`}>
                                           <div className="text-sm font-bold text-gray-700">{day.label}</div>
                                           <div className="text-xs text-gray-400">{day.dateStr}</div>
                                       </div>
@@ -710,21 +797,23 @@
                                               const topPos = (evt.startHour - 7) * 40 + (evt.startMin / 60 * 40);
                                               const height = Math.max(evt.duration * 40, 20); 
                                               const isManual = evt.isManual;
-                                              const bgColor = isManual ? (evt.color || '#f59e0b') : 'rgb(219 234 254)';
+                                              const bgColor = evt.color || (isManual ? '#f59e0b' : 'rgb(219 234 254)');
                                               const borderColor = isManual ? 'rgba(0,0,0,0.1)' : 'rgb(37 99 235)';
-                                              const textColor = isManual ? 'white' : 'rgb(30 58 138)';
-                                              const extraStyle = isManual ? { color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.2)' } : {};
+                                              // Dla lepszego kontrastu, jesli to import to ciemny tekst, jesli manual to biały (chyba ze zmieniono kolor)
+                                              // Uproszczenie: zawsze biały tekst na kolorowym tle, chyba ze to domyslny import
+                                              const textColor = (evt.color || isManual) ? 'white' : 'rgb(30 58 138)';
+                                              const extraStyle = (evt.color || isManual) ? { color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.2)' } : {};
 
                                               return (
                                                   <div 
                                                       key={evt.id}
-                                                      onClick={() => setSelectedEvent(evt)}
+                                                      onClick={(e) => { e.stopPropagation(); setSelectedEvent(evt); }}
                                                       className={`absolute left-1 right-1 rounded p-1 text-xs shadow-sm overflow-hidden z-10 hover:z-20 hover:scale-[1.02] transition-transform cursor-pointer hover:opacity-90 border-l-4`}
                                                       style={{ top: `${topPos}px`, height: `${height}px`, background: bgColor, borderColor: borderColor, color: textColor, ...extraStyle }}
                                                       title="Kliknij, aby zobaczyć szczegóły"
                                                   >
                                                       <div className="font-bold text-inherit leading-tight truncate">{evt.name}</div>
-                                                      <div className="text-[10px] opacity-90 mt-0.5">{evt.startHour}:{String(evt.startMin).padStart(2,'0')} ({evt.duration.toFixed(1)}h)</div>
+                                                      <div className="text-[10px] opacity-90 mt-0.5">{evt.startHour}:{String(evt.startMin).padStart(2,'0')}</div>
                                                   </div>
                                               );
                                           })}
