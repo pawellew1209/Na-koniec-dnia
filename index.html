@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="unnamed.ico">
-    <title>Student Life OS - Planer Tygodniowy</title>
+    <title>Student Life OS - Planer Personalny</title>
     
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
@@ -37,49 +36,82 @@
         const IconBase = ({ children, size = 24, className = "", ...props }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>{children}</svg>
         );
+
         const Save = (p) => <IconBase {...p}><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></IconBase>;
         const Trash2 = (p) => <IconBase {...p}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></IconBase>;
         const Smartphone = (p) => <IconBase {...p}><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></IconBase>;
-        const BookOpen = (p) => <IconBase {...p}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></IconBase>;
-        const Music = (p) => <IconBase {...p}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></IconBase>;
-        const Dumbbell = (p) => <IconBase {...p}><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></IconBase>;
-        const GraduationCap = (p) => <IconBase {...p}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></IconBase>;
-        const CalendarIcon = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconBase>;
         const Layout = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></IconBase>;
         const Plus = (p) => <IconBase {...p}><path d="M5 12h14"/><path d="M12 5v14"/></IconBase>;
         const X = (p) => <IconBase {...p}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>;
         const Upload = (p) => <IconBase {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></IconBase>;
+        const Download = (p) => <IconBase {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></IconBase>;
         const FileSpreadsheet = (p) => <IconBase {...p}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2"/><path d="M8 17h2"/><path d="M14 13h2"/><path d="M14 17h2"/></IconBase>;
         const ChevronLeft = (p) => <IconBase {...p}><path d="m15 18-6-6 6-6"/></IconBase>;
         const ChevronRight = (p) => <IconBase {...p}><path d="m9 18 6-6-6-6"/></IconBase>;
+        const Settings = (p) => <IconBase {...p}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.18-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.18-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.18.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.18.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></IconBase>;
+        const Target = (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></IconBase>;
+        const Clock = (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>;
+        const AlertTriangle = (p) => <IconBase {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></IconBase>;
+        const RefreshCcw = (p) => <IconBase {...p}><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></IconBase>;
+        
+        // Kalendarzowe & Inne
+        const CalendarIcon = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconBase>;
+        const CalendarPlus = (p) => <IconBase {...p}><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M10 16h4"/><path d="M12 14v4"/></IconBase>;
+        const CalendarDays = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></IconBase>;
+        const MapPin = (p) => <IconBase {...p}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></IconBase>;
+        const Edit2 = (p) => <IconBase {...p}><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></IconBase>;
+
+        // Wykresy
         const BarChart3 = (p) => <IconBase {...p}><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></IconBase>;
         const TrendingUp = (p) => <IconBase {...p}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></IconBase>;
         const PieChart = (p) => <IconBase {...p}><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></IconBase>;
-        const AlertTriangle = (p) => <IconBase {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></IconBase>;
-        const Download = (p) => <IconBase {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></IconBase>;
-        const Target = (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></IconBase>;
-        const Clock = (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>;
-        const CalendarDays = (p) => <IconBase {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></IconBase>;
+
+        // Aktywności
+        const GraduationCap = (p) => <IconBase {...p}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></IconBase>;
+        const BookOpen = (p) => <IconBase {...p}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></IconBase>;
+        const Music = (p) => <IconBase {...p}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></IconBase>;
+        const Dumbbell = (p) => <IconBase {...p}><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></IconBase>;
+        const Code = (p) => <IconBase {...p}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></IconBase>;
+        const Briefcase = (p) => <IconBase {...p}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></IconBase>;
+        const Coffee = (p) => <IconBase {...p}><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="1" y2="4"/><line x1="10" x2="10" y1="1" y2="4"/><line x1="14" x2="14" y1="1" y2="4"/></IconBase>;
+        const PenTool = (p) => <IconBase {...p}><path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/></IconBase>;
+        const Gamepad2 = (p) => <IconBase {...p}><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></IconBase>;
+        const Languages = (p) => <IconBase {...p}><path d="m5 8 5 5 5-5"/><path d="M12 4 7 20"/><path d="m17 4-5 16"/><path d="M7 11h10"/></IconBase>;
+
+        // ==========================================
+        // 2. KONFIGURACJA
+        // ==========================================
 
         const IconWrapper = ({ icon, ...props }) => {
             if (!icon) return null;
             return React.cloneElement(icon, { ...props });
         };
 
-        // --- KONFIGURACJA ---
+        const AVAILABLE_ICONS = {
+            'Nauka': <GraduationCap size={16} />,
+            'Książka': <BookOpen size={16} />,
+            'Muzyka': <Music size={16} />,
+            'Sport': <Dumbbell size={16} />,
+            'Kodowanie': <Code size={16} />,
+            'Praca': <Briefcase size={16} />,
+            'Hobby': <PenTool size={16} />,
+            'Relaks': <Coffee size={16} />,
+            'Gry': <Gamepad2 size={16} />,
+            'Języki': <Languages size={16} />
+        };
+
         const hours = Array.from({ length: 16 }, (_, i) => i + 7);
 
-        // Dodajemy kolory dla wykresu
-        const defaultActivities = [
-            { id: 'uni', name: 'Nauka własna', icon: <GraduationCap size={16} />, category: 'Obowiązki', color: '#3b82f6' }, // blue
-            { id: 'eng', name: 'Język Angielski', icon: <BookOpen size={16} />, category: 'Rozwój', color: '#8b5cf6' }, // violet
-            { id: 'book', name: 'Czytanie Książek', icon: <BookOpen size={16} />, category: 'Rozwój', color: '#a855f7' }, // purple
-            { id: 'piano', name: 'Gra na Pianinie', icon: <Music size={16} />, category: 'Muzyka', color: '#ec4899' }, // pink
-            { id: 'guitar', name: 'Gra na Gitarze', icon: <Music size={16} />, category: 'Muzyka', color: '#f43f5e' }, // rose
-            { id: 'gym', name: 'Trening / Siłownia', icon: <Dumbbell size={16} />, category: 'Zdrowie', color: '#10b981' }, // emerald
+        const DEFAULT_ACTIVITIES_LIST = [
+          { id: 'uni', name: 'Nauka własna', iconKey: 'Nauka', category: 'Obowiązki', color: '#3b82f6' },
+          { id: 'eng', name: 'Język Angielski', iconKey: 'Języki', category: 'Rozwój', color: '#8b5cf6' },
+          { id: 'book', name: 'Czytanie Książek', iconKey: 'Książka', category: 'Rozwój', color: '#a855f7' },
+          { id: 'piano', name: 'Gra na Pianinie', iconKey: 'Muzyka', category: 'Muzyka', color: '#ec4899' },
+          { id: 'guitar', name: 'Gra na Gitarze', iconKey: 'Muzyka', category: 'Muzyka', color: '#f43f5e' },
+          { id: 'gym', name: 'Trening / Siłownia', iconKey: 'Sport', category: 'Zdrowie', color: '#10b981' },
         ];
 
-        const PhoneActivity = { id: 'phone', name: 'Czas na Telefonie', icon: <Smartphone size={16} />, category: 'Strata', color: '#ef4444' }; // red
+        const PhoneActivity = { id: 'phone', name: 'Czas na Telefonie', icon: <Smartphone size={16} />, category: 'Strata', color: '#ef4444' };
 
         // --- FUNKCJE POMOCNICZE CZASU ---
         const toMinutes = (h, m) => (parseInt(h) || 0) * 60 + (parseInt(m) || 0);
@@ -93,23 +125,17 @@
             if (h === 0 && m === 0) return "0m";
             return `${h}h ${m}m`;
         };
+        const formatTime = (dateIso) => {
+            const d = new Date(dateIso);
+            return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+        }
 
-        // --- KOMPONENT INPUTA CZASU ---
+        // --- KOMPONENTY UI ---
         const DurationInput = ({ value, onChange, placeholder, isBad }) => {
             const { h, m } = fromMinutes(value);
-            
-            const handleH = (e) => {
-                const newH = Math.max(0, parseInt(e.target.value) || 0);
-                onChange(newH * 60 + m);
-            };
-            
-            const handleM = (e) => {
-                const newM = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
-                onChange(h * 60 + newM);
-            };
-
-            const bgClass = isBad ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200 focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-200';
-
+            const handleH = (e) => onChange(Math.max(0, parseInt(e.target.value) || 0) * 60 + m);
+            const handleM = (e) => onChange(h * 60 + Math.max(0, Math.min(59, parseInt(e.target.value) || 0)));
+            const bgClass = isBad ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200 focus-within:border-blue-400';
             return (
                 <div className={`flex items-center border rounded-md px-1 py-0.5 ${bgClass} w-24 mx-auto`}>
                     <input 
@@ -135,7 +161,43 @@
             );
         };
 
-        // --- KOMPONENT WYKRESU KOŁOWEGO (CSS CONIC GRADIENT) ---
+        // --- FUNKCJE DATY ---
+
+        const toLocalISOString = (date) => {
+          const y = date.getFullYear();
+          const m = String(date.getMonth() + 1).padStart(2, '0');
+          const d = String(date.getDate()).padStart(2, '0');
+          return `${y}-${m}-${d}`;
+        };
+
+        const getMonday = (d) => {
+          const date = new Date(d);
+          const day = date.getDay();
+          const diff = date.getDate() - day + (day === 0 ? -6 : 1); 
+          date.setDate(diff);
+          date.setHours(0, 0, 0, 0);
+          return date;
+        };
+
+        const formatDate = (date) => {
+          return date.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
+      };
+
+        const getMonthName = (date) => {
+            return date.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' });
+        };
+
+        const getWeekId = (date) => {
+          return toLocalISOString(date); 
+        };
+
+        const addDays = (date, days) => {
+          const result = new Date(date);
+          result.setDate(result.getDate() + days);
+          return result;
+        };
+
+        // --- KOMPONENT WYKRESU KOŁOWEGO ---
         const SimplePieChart = ({ data }) => {
             const total = data.reduce((acc, item) => acc + item.value, 0);
             
@@ -178,473 +240,609 @@
             );
         };
 
-        // --- FUNKCJE DATY ---
-        const toLocalISOString = (date) => {
-            const y = date.getFullYear();
-            const m = String(date.getMonth() + 1).padStart(2, '0');
-            const d = String(date.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
-        };
-
-        const getMonday = (d) => {
-            const date = new Date(d);
-            const day = date.getDay();
-            const diff = date.getDate() - day + (day === 0 ? -6 : 1); 
-            date.setDate(diff);
-            date.setHours(0, 0, 0, 0);
-            return date;
-        };
-
-        const formatDate = (date) => date.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' });
-        const getMonthName = (date) => date.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' });
-        const addDays = (date, days) => {
-            const result = new Date(date);
-            result.setDate(result.getDate() + days);
-            return result;
-        };
-
         // --- GŁÓWNY KOMPONENT ---
+
         function WeeklyPlanner() {
-            const [activeTab, setActiveTab] = useState('tracker'); 
-            const [currentWeekStart, setCurrentWeekStart] = useState(getMonday(new Date()));
-            const [debugInfo, setDebugInfo] = useState(null);
-            const [showGoalModal, setShowGoalModal] = useState(false);
-            const fileInputRef = useRef(null);
+          const [activeTab, setActiveTab] = useState('tracker'); 
+          const [currentWeekStart, setCurrentWeekStart] = useState(getMonday(new Date()));
+          const [showGoalModal, setShowGoalModal] = useState(false);
+          const [showManageModal, setShowManageModal] = useState(false);
+          const [showEventModal, setShowEventModal] = useState(false);
+          const [selectedEvent, setSelectedEvent] = useState(null); // DO SZCZEGÓŁÓW
+          const [editingEvent, setEditingEvent] = useState(null); // DO EDYCJI
+          const [debugInfo, setDebugInfo] = useState(null);
+          const fileInputRef = useRef(null);
 
-            const currentDays = Array.from({ length: 7 }, (_, i) => {
-                const d = addDays(currentWeekStart, i);
-                return {
-                    dateObj: d,
-                    dateStr: formatDate(d),
-                    dayKey: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][d.getDay()],
-                    label: d.toLocaleDateString('pl-PL', { weekday: 'long' }),
-                    short: d.toLocaleDateString('pl-PL', { weekday: 'short' }),
-                    iso: toLocalISOString(d)
-                };
-            });
+          // --- STATE ---
+          const [activities, setActivities] = useState(() => {
+              const saved = localStorage.getItem('plannerActivities');
+              return saved ? JSON.parse(saved) : DEFAULT_ACTIVITIES_LIST;
+          });
+          const [trackerData, setTrackerData] = useState(() => {
+            const saved = localStorage.getItem('plannerData_v3');
+            return saved ? JSON.parse(saved) : {};
+          });
+          const [goalsConfig, setGoalsConfig] = useState(() => {
+              const saved = localStorage.getItem('plannerGoals');
+              const defaults = {};
+              [PhoneActivity, ...DEFAULT_ACTIVITIES_LIST].forEach(act => defaults[act.id] = 0);
+              return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+          });
+          const [allEvents, setAllEvents] = useState(() => {
+            const saved = localStorage.getItem('allEvents_v2');
+            return saved ? JSON.parse(saved) : [];
+          });
+          const [manualEvents, setManualEvents] = useState(() => {
+              const saved = localStorage.getItem('plannerManualEvents');
+              return saved ? JSON.parse(saved) : [];
+          });
 
-            // --- STAN DANYCH ---
-            const [trackerData, setTrackerData] = useState(() => {
-                const saved = localStorage.getItem('plannerData_v3');
-                return saved ? JSON.parse(saved) : {};
-            });
+          useEffect(() => { localStorage.setItem('plannerActivities', JSON.stringify(activities)); }, [activities]);
+          useEffect(() => { localStorage.setItem('plannerData_v3', JSON.stringify(trackerData)); }, [trackerData]);
+          useEffect(() => { localStorage.setItem('plannerGoals', JSON.stringify(goalsConfig)); }, [goalsConfig]);
+          useEffect(() => { localStorage.setItem('allEvents_v2', JSON.stringify(allEvents)); }, [allEvents]);
+          useEffect(() => { localStorage.setItem('plannerManualEvents', JSON.stringify(manualEvents)); }, [manualEvents]);
 
-            const [goalsConfig, setGoalsConfig] = useState(() => {
-                const saved = localStorage.getItem('plannerGoals');
-                const defaults = {};
-                [PhoneActivity, ...defaultActivities].forEach(act => defaults[act.id] = 0);
-                return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
-            });
-
-            const [allEvents, setAllEvents] = useState(() => {
-                const saved = localStorage.getItem('allEvents_v2');
-                return saved ? JSON.parse(saved) : [];
-            });
-
-            useEffect(() => { localStorage.setItem('plannerData_v3', JSON.stringify(trackerData)); }, [trackerData]);
-            useEffect(() => { localStorage.setItem('plannerGoals', JSON.stringify(goalsConfig)); }, [goalsConfig]);
-            useEffect(() => { localStorage.setItem('allEvents_v2', JSON.stringify(allEvents)); }, [allEvents]);
-
-            // --- OBSŁUGA TRACKERA ---
-            const updateTracker = (activityId, dayIso, value) => {
-                setTrackerData(prev => ({ ...prev, [`${dayIso}_${activityId}`]: value }));
+          const currentDays = Array.from({ length: 7 }, (_, i) => {
+            const d = addDays(currentWeekStart, i);
+            return {
+              dateObj: d,
+              dateStr: formatDate(d),
+              dayKey: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][d.getDay()],
+              label: d.toLocaleDateString('pl-PL', { weekday: 'long' }),
+              short: d.toLocaleDateString('pl-PL', { weekday: 'short' }),
+              iso: toLocalISOString(d)
             };
+          });
 
-            const getTrackerValue = (activityId, dayIso) => {
-                return trackerData[`${dayIso}_${activityId}`] || 0;
-            };
+          const updateTracker = (activityId, dayIso, value) => setTrackerData(prev => ({ ...prev, [`${dayIso}_${activityId}`]: value }));
+          const getTrackerValue = (activityId, dayIso) => trackerData[`${dayIso}_${activityId}`] || 0;
+          const updateGoal = (activityId, minutes) => setGoalsConfig(prev => ({ ...prev, [activityId]: minutes }));
+          
+          const addActivity = (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const newAct = { id: 'act_' + Date.now(), name: formData.get('name'), category: formData.get('category'), color: formData.get('color'), iconKey: formData.get('iconKey') };
+              setActivities([...activities, newAct]); e.target.reset();
+          };
+          const removeActivity = (id) => { if (confirm('Czy na pewno chcesz usunąć tę aktywność?')) setActivities(activities.filter(a => a.id !== id)); };
+          const moveActivity = (index, direction) => {
+                const newActivities = [...activities];
+                const targetIndex = index + direction;
+                if (targetIndex >= 0 && targetIndex < newActivities.length) {
+                    [newActivities[index], newActivities[targetIndex]] = [newActivities[targetIndex], newActivities[index]];
+                    setActivities(newActivities);
+                }
+          };
 
-            const updateGoal = (activityId, minutes) => {
-                setGoalsConfig(prev => ({ ...prev, [activityId]: minutes }));
-            };
+          // --- OBSŁUGA ZDARZEŃ (DODAWANIE I EDYCJA) ---
+          const handleEventSubmit = (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const name = formData.get('name');
+              const date = formData.get('date');
+              const start = formData.get('start');
+              const end = formData.get('end');
+              const color = formData.get('color');
 
-            // --- KALKULACJE ---
-            const calculateWeeklyTotal = (activityId) => {
-                let sum = 0;
-                currentDays.forEach(day => {
-                    sum += getTrackerValue(activityId, day.iso);
-                });
-                return sum;
-            };
+              if (name && date && start && end) {
+                  const [sh, sm] = start.split(':').map(Number);
+                  const [eh, em] = end.split(':').map(Number);
+                  const startDateObj = new Date(date); startDateObj.setHours(sh, sm);
+                  const endDateObj = new Date(date); endDateObj.setHours(eh, em);
+                  const duration = (endDateObj - startDateObj) / (1000 * 60 * 60);
 
-            // Nowe funkcje kalkulacji dla raportów
-            const calculateMonthlyTotal = (activityId, currentMonthDate) => {
-                let sum = 0;
-                const targetMonth = currentMonthDate.getMonth();
-                const targetYear = currentMonthDate.getFullYear();
+                  if (duration > 0) {
+                      const newEventData = { 
+                          name, start: startDateObj.toISOString(), duration, color, isManual: true 
+                      };
 
-                Object.keys(trackerData).forEach(key => {
-                    const [dateStr, actId] = key.split('_');
-                    if (actId === activityId) {
-                        const date = new Date(dateStr);
-                        if (date.getMonth() === targetMonth && date.getFullYear() === targetYear) {
-                            sum += (trackerData[key] || 0);
-                        }
-                    }
-                });
-                return sum;
-            };
+                      if (editingEvent) {
+                          // Aktualizacja istniejącego
+                          setManualEvents(manualEvents.map(ev => ev.id === editingEvent.id ? { ...ev, ...newEventData } : ev));
+                          setEditingEvent(null);
+                          setSelectedEvent(null); // Zamknij też widok szczegółów
+                      } else {
+                          // Dodawanie nowego
+                          setManualEvents([...manualEvents, { id: 'manual_' + Date.now(), ...newEventData }]);
+                      }
+                      setShowEventModal(false);
+                  } else { alert("Godzina zakończenia musi być późniejsza niż rozpoczęcia."); }
+              }
+          };
 
-            const calculateAllTimeTotal = (activityId) => {
-                let sum = 0;
-                Object.keys(trackerData).forEach(key => {
-                    const [_, actId] = key.split('_');
-                    if (actId === activityId) {
-                        sum += (trackerData[key] || 0);
-                    }
-                });
-                return sum;
-            };
+          const openEditModal = (evt) => {
+              setEditingEvent(evt);
+              setShowEventModal(true);
+          };
 
-            // --- EKSPORT CSV ---
-            const exportToCSV = () => {
-                const SEP = ';';
-                let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-                csvContent += `CELE TYGODNIOWE (h:m)${SEP}${SEP}\n`;
-                [PhoneActivity, ...defaultActivities].forEach(act => csvContent += `${act.name}${SEP}${formatDuration(goalsConfig[act.id])}\n`);
-                csvContent += `\nRAPORT SZCZEGÓŁOWY (Minuty)${SEP}${SEP}${SEP}\n`;
-                csvContent += `Data${SEP}Kategoria${SEP}Aktywność${SEP}Czas (min)\n`;
-                const sortedKeys = Object.keys(trackerData).sort();
-                sortedKeys.forEach(key => {
-                    const [dateStr, actId] = key.split('_');
-                    const val = trackerData[key];
-                    if (val > 0) {
-                        let actName = defaultActivities.find(a => a.id === actId)?.name || PhoneActivity.name;
-                        csvContent += `${dateStr}${SEP}Realizacja${SEP}${actName}${SEP}${val}\n`;
-                    }
-                });
-                const link = document.createElement("a");
-                link.setAttribute("href", encodeURI(csvContent));
-                link.setAttribute("download", "student_planner_export.csv");
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            };
+          const removeManualEvent = (id) => {
+              if(confirm("Usunąć to zdarzenie?")) {
+                  setManualEvents(manualEvents.filter(e => e.id !== id));
+                  setSelectedEvent(null);
+              }
+          };
 
-            // --- OBSŁUGA PLIKÓW ICS ---
-            const parseICSContent = (content) => {
+          const handleFileUpload = (event) => {
+            const file = event.target.files[0]; if (!file) return; event.target.value = null;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              try {
+                const content = e.target.result;
                 const rawLines = content.split(/\r\n|\n|\r/);
                 const unfoldedLines = [];
-                rawLines.forEach(line => {
-                    if (line.startsWith(' ') || line.startsWith('\t')) {
-                        if (unfoldedLines.length > 0) unfoldedLines[unfoldedLines.length - 1] += line.trimStart();
-                    } else if (line.trim()) unfoldedLines.push(line.trim());
-                });
-                const events = [];
-                let inEvent = false;
-                let currentEvent = {};
+                rawLines.forEach(line => { if (line.startsWith(' ') || line.startsWith('\t')) unfoldedLines[unfoldedLines.length - 1] += line.trimStart(); else if (line.trim()) unfoldedLines.push(line.trim()); });
+                const events = []; let inEvent = false, currentEvent = {};
                 unfoldedLines.forEach(line => {
-                    if (line === 'BEGIN:VEVENT') { inEvent = true; currentEvent = {}; }
-                    else if (line === 'END:VEVENT') {
-                        inEvent = false;
-                        if (currentEvent.startRaw) {
-                            if (!currentEvent.summary) currentEvent.summary = "Bez tytułu";
-                            events.push({ ...currentEvent, id: Date.now() + Math.random() });
-                        }
-                    } else if (inEvent) {
-                        const colonIndex = line.indexOf(':');
-                        if (colonIndex > -1) {
-                            let keyPart = line.substring(0, colonIndex);
-                            const valuePart = line.substring(colonIndex + 1);
-                            const semiIndex = keyPart.indexOf(';');
-                            if (semiIndex > -1) keyPart = keyPart.substring(0, semiIndex);
-                            keyPart = keyPart.toUpperCase();
-                            if (keyPart === 'DTSTART') currentEvent.startRaw = valuePart;
-                            if (keyPart === 'DTEND') currentEvent.endRaw = valuePart;
-                            if (keyPart === 'SUMMARY') currentEvent.summary = valuePart;
+                    if (line === 'BEGIN:VEVENT') { inEvent = true; currentEvent = {}; } 
+                    else if (line === 'END:VEVENT') { inEvent = false; if (currentEvent.startRaw) events.push({...currentEvent, id: Date.now()+Math.random()}); } 
+                    else if (inEvent) {
+                        const idx = line.indexOf(':');
+                        if (idx > -1) {
+                            let k = line.substring(0, idx).split(';')[0].toUpperCase();
+                            let v = line.substring(idx+1);
+                            if (k==='DTSTART') currentEvent.startRaw = v;
+                            if (k==='DTEND') currentEvent.endRaw = v;
+                            if (k==='SUMMARY') currentEvent.summary = v;
+                            if (k==='LOCATION') currentEvent.location = v; // Obsługa lokalizacji
                         }
                     }
                 });
-                return events;
-            };
-
-            const parseICSDate = (dateStr) => {
-                if (!dateStr) return null;
-                const isUTC = dateStr.endsWith('Z');
-                const cleanStr = dateStr.replace('Z', '');
-                if (cleanStr.length === 8) {
-                    const y = parseInt(cleanStr.substring(0, 4));
-                    const m = parseInt(cleanStr.substring(4, 6)) - 1;
-                    const d = parseInt(cleanStr.substring(6, 8));
-                    return new Date(y, m, d, 8, 0);
-                }
-                if (cleanStr.length >= 15) {
-                    const y = parseInt(cleanStr.substring(0, 4));
-                    const m = parseInt(cleanStr.substring(4, 6)) - 1;
-                    const d = parseInt(cleanStr.substring(6, 8));
-                    const h = parseInt(cleanStr.substring(9, 11));
-                    const min = parseInt(cleanStr.substring(11, 13));
-                    return isUTC ? new Date(Date.UTC(y, m, d, h, min)) : new Date(y, m, d, h, min);
-                }
-                return null;
-            };
-
-            const handleFileUpload = (event) => {
-                const file = event.target.files[0];
-                if (!file) return;
-                event.target.value = null;
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const content = e.target.result;
-                        const rawEvents = parseICSContent(content);
-                        const parsedEvents = [];
-                        rawEvents.forEach(evt => {
-                            const startDate = parseICSDate(evt.startRaw);
-                            const endDate = parseICSDate(evt.endRaw);
-                            if (startDate) {
-                                const duration = endDate ? (endDate - startDate) / (1000 * 60 * 60) : 1.5;
-                                parsedEvents.push({
-                                    id: evt.id, name: evt.summary, start: startDate.toISOString(),
-                                    end: endDate ? endDate.toISOString() : null, duration: duration > 0 ? duration : 1
-                                });
-                            }
-                        });
-                        if (parsedEvents.length > 0) {
-                            setAllEvents(prev => {
-                                const newEvents = [...prev, ...parsedEvents];
-                                return Array.from(new Map(newEvents.map(item => [item.start + item.name, item])).values());
-                            });
-                            alert(`Sukces! Dodano ${parsedEvents.length} wydarzeń.`);
-                        } else { setDebugInfo("Nie znaleziono wydarzeń."); }
-                    } catch (err) { setDebugInfo("Błąd: " + err.message); }
+                const parseICSDate = (s) => {
+                    if(!s) return null; const c = s.replace('Z',''); const y=parseInt(c.substring(0,4)), m=parseInt(c.substring(4,6))-1, d=parseInt(c.substring(6,8));
+                    if(c.length===8) return new Date(y,m,d,8,0);
+                    const h=parseInt(c.substring(9,11)), min=parseInt(c.substring(11,13));
+                    return new Date(y,m,d,h,min);
                 };
-                reader.readAsText(file);
+                const parsedEvents = events.map(evt => {
+                    const s = parseICSDate(evt.startRaw); const e = parseICSDate(evt.endRaw);
+                    if(s) return { id: evt.id, name: evt.summary || 'Bez tytułu', start: s.toISOString(), duration: e ? (e-s)/3600000 : 1.5, location: evt.location }; // Dodano location
+                    return null;
+                }).filter(Boolean);
+                if (parsedEvents.length > 0) { setAllEvents(prev => [...prev, ...parsedEvents]); alert(`Dodano ${parsedEvents.length} wydarzeń.`); }
+              } catch (err) { setDebugInfo("Błąd: " + err.message); }
             };
+            reader.readAsText(file);
+          };
 
-            const getEventsForDay = (dateIso) => {
-                const [y, m, d] = dateIso.split('-').map(Number);
-                const dayStart = new Date(y, m - 1, d, 0, 0, 0);
-                const dayEnd = new Date(y, m - 1, d, 23, 59, 59);
-                return allEvents.filter(evt => {
-                    const evtStart = new Date(evt.start);
-                    return evtStart >= dayStart && evtStart <= dayEnd;
-                }).map(evt => ({ ...evt, startHour: new Date(evt.start).getHours(), startMin: new Date(evt.start).getMinutes() }));
-            };
+          const getEventsForDay = (dateIso) => {
+              const [y, m, d] = dateIso.split('-').map(Number); const dayStart = new Date(y, m - 1, d, 0, 0, 0); const dayEnd = new Date(y, m - 1, d, 23, 59, 59);
+              return [...allEvents, ...manualEvents].filter(evt => { const evtStart = new Date(evt.start); return evtStart >= dayStart && evtStart <= dayEnd; }).map(evt => ({ ...evt, startHour: new Date(evt.start).getHours(), startMin: new Date(evt.start).getMinutes() }));
+          };
 
-            // --- RENDER ---
-            return (
-                <div className="max-w-screen-2xl mx-auto p-2 sm:p-4 font-sans text-gray-800">
-                    {/* NAVBAR */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-4 p-4 sticky top-0 z-20">
-                        <div className="flex flex-col xl:flex-row justify-between items-center gap-4">
-                            <div className="flex items-center gap-4">
-                                <div className="flex items-center bg-gray-100 rounded-lg p-1">
-                                    <button onClick={() => setCurrentWeekStart(prev => addDays(prev, -7))} className="p-2 hover:bg-white rounded-md transition-colors"><IconWrapper icon={<ChevronLeft size={20}/>}/></button>
-                                    <button onClick={() => setCurrentWeekStart(getMonday(new Date()))} className="px-4 py-2 text-sm font-bold text-gray-700 hover:text-blue-600">Dzisiaj</button>
-                                    <button onClick={() => setCurrentWeekStart(prev => addDays(prev, 7))} className="p-2 hover:bg-white rounded-md transition-colors"><IconWrapper icon={<ChevronRight size={20}/>}/></button>
-                                </div>
+          const calculateWeeklyTotal = (activityId) => currentDays.reduce((acc, day) => acc + getTrackerValue(activityId, day.iso), 0);
+          const calculateMonthlyTotal = (activityId, currentMonthDate) => {
+              let sum = 0; const tm = currentMonthDate.getMonth(); const ty = currentMonthDate.getFullYear();
+              Object.keys(trackerData).forEach(key => { const parts = key.split('_'); if (parts.length === 2 && parts[1] === activityId) { const date = new Date(parts[0]); if (date.getMonth() === tm && date.getFullYear() === ty) sum += (trackerData[key] || 0); } });
+              return sum;
+          };
+          const calculateAllTimeTotal = (activityId) => { let sum = 0; Object.keys(trackerData).forEach(key => { const parts = key.split('_'); if (parts.length === 2 && parts[1] === activityId) sum += (parseFloat(trackerData[key]) || 0); }); return sum; };
+
+          const changeWeek = (offset) => setCurrentWeekStart(prev => addDays(prev, offset * 7));
+          const goToToday = () => setCurrentWeekStart(getMonday(new Date()));
+          const clearCalendar = () => { if(confirm("Wyczyścić import?")) setAllEvents([]); };
+
+          const SummaryBar = ({ label, plan, act, isPhone }) => {
+              const percentage = plan > 0 ? (act / plan) * 100 : 0;
+              let color = isPhone ? (act > plan && plan > 0 ? "bg-red-500" : "bg-green-500") : (act >= plan && plan > 0 ? "bg-green-500" : "bg-yellow-400");
+              let trackColor = isPhone ? "bg-red-100" : "bg-gray-200";
+              return (
+                  <div className="mb-4">
+                      <div className="flex justify-between text-sm mb-1"><span className="font-medium text-gray-700">{label}</span><span className="text-gray-500"><span className={`font-bold ${isPhone && act > plan ? 'text-red-600' : 'text-gray-800'}`}>{formatDuration(act)}</span> / {formatDuration(plan)}</span></div>
+                      <div className={`w-full ${trackColor} rounded-full h-2.5`}><div className={`h-2.5 rounded-full ${color}`} style={{ width: `${Math.min(percentage, 100)}%` }}></div></div>
+                  </div>
+              );
+          };
+
+          return (
+            <div className="max-w-7xl mx-auto p-2 sm:p-4 bg-gray-50 min-h-screen font-sans">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-4 p-4 sticky top-0 z-20">
+                  <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                      <div className="flex items-center gap-4">
+                          <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                              <button onClick={() => changeWeek(-1)} className="p-2 hover:bg-white rounded-md transition-colors"><IconWrapper icon={<ChevronLeft size={20} />} /></button>
+                              <button onClick={goToToday} className="px-4 py-2 text-sm font-bold text-gray-700 hover:text-blue-600">Dzisiaj</button>
+                              <button onClick={() => changeWeek(1)} className="p-2 hover:bg-white rounded-md transition-colors"><IconWrapper icon={<ChevronRight size={20} />} /></button>
+                          </div>
+                          <div><h2 className="text-xl font-bold text-gray-800">{currentWeekStart.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' })}</h2><p className="text-xs text-gray-500">Tydzień: {formatDate(currentWeekStart)} - {formatDate(addDays(currentWeekStart, 6))}</p></div>
+                      </div>
+                      <div className="flex gap-2 items-center overflow-x-auto">
+                          <div className="flex gap-2 bg-gray-100 p-1 rounded-lg">
+                            <button onClick={() => setActiveTab('tracker')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 whitespace-nowrap ${activeTab === 'tracker' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<Layout size={16} />} /> Nawyki</button>
+                            <button onClick={() => setActiveTab('schedule')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 whitespace-nowrap ${activeTab === 'schedule' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<CalendarIcon size={16} />} /> Kalendarz</button>
+                            <button onClick={() => setActiveTab('summary')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 whitespace-nowrap ${activeTab === 'summary' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<BarChart3 size={16} />} /> Raporty</button>
+                          </div>
+                          <button onClick={() => setShowGoalModal(true)} className="ml-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"><IconWrapper icon={<Target size={18} />} /> Cele</button>
+                      </div>
+                  </div>
+              </div>
+
+              {/* MODAL: SZCZEGÓŁY ZDARZENIA */}
+              {selectedEvent && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden">
+                        <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
+                            <h3 className="font-bold text-lg text-gray-800">Szczegóły zdarzenia</h3>
+                            <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <div className="text-xs text-gray-500 uppercase font-bold mb-1">Nazwa</div>
+                                <div className="text-xl font-bold text-gray-800 leading-tight">{selectedEvent.name}</div>
+                            </div>
+                            <div className="flex items-center gap-3 text-gray-700">
+                                <IconWrapper icon={<Clock size={20} className="text-blue-500"/>} />
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-800">{currentWeekStart.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric' })}</h2>
-                                    <p className="text-xs text-gray-500">Tydzień: {formatDate(currentWeekStart)} - {formatDate(addDays(currentWeekStart, 6))}</p>
+                                    <div className="font-bold">{formatTime(selectedEvent.start)} - {formatTime(new Date(new Date(selectedEvent.start).getTime() + selectedEvent.duration * 3600000))}</div>
+                                    <div className="text-xs text-gray-500">{new Date(selectedEvent.start).toLocaleDateString('pl-PL', {weekday: 'long', day: 'numeric', month: 'long'})}</div>
                                 </div>
                             </div>
-                            <div className="flex flex-wrap gap-2 items-center justify-center">
-                                <div className="flex gap-2 bg-gray-100 p-1 rounded-lg">
-                                    <button onClick={() => setActiveTab('tracker')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 ${activeTab === 'tracker' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<Layout size={16}/>}/> Nawyki</button>
-                                    <button onClick={() => setActiveTab('schedule')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 ${activeTab === 'schedule' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<CalendarIcon size={16}/>}/> Kalendarz</button>
-                                    <button onClick={() => setActiveTab('summary')} className={`px-3 py-2 rounded-md text-sm font-bold flex gap-2 ${activeTab === 'summary' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><IconWrapper icon={<BarChart3 size={16}/>}/> Raporty</button>
+                            {selectedEvent.location && (
+                                <div className="flex items-center gap-3 text-gray-700">
+                                    <IconWrapper icon={<MapPin size={20} className="text-red-500"/>} />
+                                    <div>
+                                        <div className="font-bold">{selectedEvent.location}</div>
+                                        <div className="text-xs text-gray-500">Lokalizacja / Sala</div>
+                                    </div>
                                 </div>
-                                <button onClick={() => setShowGoalModal(true)} className="ml-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"><IconWrapper icon={<Target size={18}/>}/> <span className="hidden sm:inline">Ustaw Cele</span></button>
-                                <button onClick={exportToCSV} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm" title="Pobierz plik CSV"><IconWrapper icon={<Download size={18}/>}/></button>
-                            </div>
+                            )}
+                        </div>
+                        <div className="p-4 border-t bg-gray-50 flex justify-end gap-2">
+                            {selectedEvent.isManual && (
+                                <>
+                                    <button onClick={() => openEditModal(selectedEvent)} className="bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Edit2 size={16}/>} /> Edytuj</button>
+                                    <button onClick={() => removeManualEvent(selectedEvent.id)} className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><IconWrapper icon={<Trash2 size={16}/>} /> Usuń</button>
+                                </>
+                            )}
+                            <button onClick={() => setSelectedEvent(null)} className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold">Zamknij</button>
                         </div>
                     </div>
+                </div>
+              )}
 
-                    {/* MODAL CELÓW */}
-                    {showGoalModal && (
-                        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
-                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
-                                <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
-                                    <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<Target size={20}/>}/> Skonfiguruj Cele Tygodniowe</h3>
-                                    <button onClick={() => setShowGoalModal(false)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20}/>}/></button>
-                                </div>
-                                <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                                    <div className="p-3 bg-blue-50 text-blue-800 text-sm rounded-lg mb-4">Tutaj ustalasz, ile czasu <strong>tygodniowo</strong> chcesz poświęcić na każdą czynność.</div>
-                                    <div className="flex items-center justify-between p-3 bg-red-50 border border-red-100 rounded-lg">
-                                        <div className="flex items-center gap-3"><div className="p-2 bg-white rounded-full text-red-600 shadow-sm"><IconWrapper icon={PhoneActivity.icon}/></div><div><div className="font-bold text-gray-800">{PhoneActivity.name}</div><div className="text-xs text-red-600">Limit tygodniowy (max)</div></div></div>
-                                        <DurationInput value={goalsConfig[PhoneActivity.id]} onChange={(val) => updateGoal(PhoneActivity.id, val)} />
-                                    </div>
-                                    {defaultActivities.map(act => (
-                                        <div key={act.id} className="flex items-center justify-between p-2 border-b border-gray-100 last:border-0">
-                                            <div className="flex items-center gap-3"><div className="text-gray-500"><IconWrapper icon={act.icon} size={20}/></div><div className="font-medium text-gray-700">{act.name}</div></div>
-                                            <DurationInput value={goalsConfig[act.id]} onChange={(val) => updateGoal(act.id, val)} />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="p-4 border-t bg-gray-50 text-right"><button onClick={() => setShowGoalModal(false)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold">Zapisz i Zamknij</button></div>
-                            </div>
-                        </div>
-                    )}
+              {showManageModal && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+                      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[80vh]">
+                          <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
+                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<Settings size={20} />} /> Zarządzaj Listą</h3>
+                              <button onClick={() => setShowManageModal(false)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
+                          </div>
+                          <div className="p-6 overflow-y-auto flex-1">
+                              <form onSubmit={addActivity} className="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                  <div className="md:col-span-4"><label className="block text-xs font-bold text-gray-500 mb-1">Nazwa</label><input required name="name" type="text" placeholder="np. Joga" className="w-full border rounded p-2 text-sm"/></div>
+                                  <div className="md:col-span-3"><label className="block text-xs font-bold text-gray-500 mb-1">Kategoria</label><input required name="category" type="text" placeholder="np. Zdrowie" className="w-full border rounded p-2 text-sm"/></div>
+                                  <div className="md:col-span-3"><label className="block text-xs font-bold text-gray-500 mb-1">Ikona</label><select name="iconKey" className="w-full border rounded p-2 text-sm">{Object.keys(AVAILABLE_ICONS).map(k => <option key={k} value={k}>{k}</option>)}</select></div>
+                                  <div className="md:col-span-1"><label className="block text-xs font-bold text-gray-500 mb-1">Kolor</label><input name="color" type="color" defaultValue="#3b82f6" className="w-full h-9 p-0 border rounded cursor-pointer"/></div>
+                                  <div className="md:col-span-1"><button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white h-9 rounded flex items-center justify-center"><IconWrapper icon={<Plus size={20} />} /></button></div>
+                              </form>
+                              <div className="space-y-2">
+                                  {activities.map((act, idx) => (
+                                      <div key={act.id} className="flex items-center justify-between p-3 bg-white border rounded-lg">
+                                          <div className="flex items-center gap-3">
+                                              <div className="w-8 h-8 rounded-full flex items-center justify-center text-white" style={{background: act.color}}><IconWrapper icon={AVAILABLE_ICONS[act.iconKey] || AVAILABLE_ICONS['Hobby']} size={16} /></div>
+                                              <div><div className="font-bold text-gray-800 text-sm">{act.name}</div><div className="text-xs text-gray-500">{act.category}</div></div>
+                                          </div>
+                                          <div className="flex gap-1">
+                                              {idx > 0 && <button onClick={() => moveActivity(idx, -1)} className="p-2 hover:bg-gray-100 rounded text-gray-500"><IconWrapper icon={<ChevronLeft className="rotate-90" size={16} />} /></button>}
+                                              {idx < activities.length - 1 && <button onClick={() => moveActivity(idx, 1)} className="p-2 hover:bg-gray-100 rounded text-gray-500"><IconWrapper icon={<ChevronRight className="rotate-90" size={16} />} /></button>}
+                                              <button onClick={() => removeActivity(act.id)} className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 rounded"><IconWrapper icon={<Trash2 size={16} />} /></button>
+                                          </div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              )}
 
-                    {debugInfo && <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 mb-4 flex items-start gap-3"><IconWrapper icon={<AlertTriangle size={20} className="mt-0.5 shrink-0"/>}/><div><p className="font-bold">Błąd</p><p className="text-sm">{debugInfo}</p></div></div>}
+              {showEventModal && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+                      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
+                          <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
+                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<CalendarPlus size={20} />} /> {editingEvent ? 'Edytuj Zdarzenie' : 'Dodaj Zdarzenie'}</h3>
+                              <button onClick={() => {setShowEventModal(false); setEditingEvent(null);}} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
+                          </div>
+                          <form onSubmit={handleEventSubmit} className="p-6 space-y-4">
+                              <div><label className="block text-xs font-bold text-gray-500 mb-1">Nazwa</label><input required name="name" defaultValue={editingEvent?.name} type="text" className="w-full border rounded p-2"/></div>
+                              <div><label className="block text-xs font-bold text-gray-500 mb-1">Data</label><input required name="date" defaultValue={editingEvent ? toLocalISOString(new Date(editingEvent.start)) : toLocalISOString(new Date())} type="date" className="w-full border rounded p-2"/></div>
+                              <div className="grid grid-cols-2 gap-2">
+                                  <div><label className="block text-xs font-bold text-gray-500 mb-1">Od</label><input required name="start" defaultValue={editingEvent ? formatTime(editingEvent.start) : "12:00"} type="time" className="w-full border rounded p-2"/></div>
+                                  <div><label className="block text-xs font-bold text-gray-500 mb-1">Do</label><input required name="end" defaultValue={editingEvent ? formatTime(new Date(new Date(editingEvent.start).getTime() + editingEvent.duration * 3600000)) : "13:30"} type="time" className="w-full border rounded p-2"/></div>
+                              </div>
+                              <div><label className="block text-xs font-bold text-gray-500 mb-1">Kolor</label><input name="color" type="color" defaultValue={editingEvent?.color || "#f59e0b"} className="w-full h-10 p-1 border rounded cursor-pointer"/></div>
+                              <div className="pt-2"><button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold">{editingEvent ? 'Zapisz zmiany' : 'Dodaj'}</button></div>
+                          </form>
+                      </div>
+                  </div>
+              )}
 
-                    {/* WIDOK: TRACKER */}
-                    {activeTab === 'tracker' && (
-                        <div className="animate-fade-in bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                            <div className="p-4 bg-gray-50 border-b border-gray-200">
-                                <h3 className="font-bold text-gray-700 flex items-center gap-2"><IconWrapper icon={<Clock size={20}/>}/> Rejestr Czasu - Wpisz ile czasu poświęciłeś</h3>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm min-w-[800px]">
-                                    <thead>
-                                        <tr className="bg-gray-100 text-xs text-gray-500 uppercase">
-                                            <th className="p-3 text-left w-64 sticky left-0 bg-gray-100 z-10 border-r">Aktywność / Cel Tygodnia</th>
-                                            {currentDays.map(day => <th key={day.iso} className="p-2 text-center border-r last:border-r-0 min-w-[110px]"><div className="font-bold text-gray-700">{day.short}</div><div className="text-[10px] text-gray-400">{day.dateStr}</div></th>)}
-                                            <th className="p-3 text-center w-24 bg-gray-100 border-l font-bold">Suma</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100">
-                                        <tr className="bg-red-50/30 hover:bg-red-50/50 transition-colors">
-                                            <td className="p-3 sticky left-0 bg-white z-10 border-r border-red-100 shadow-sm">
-                                                <div className="flex items-center gap-2 font-bold text-red-800 mb-1"><IconWrapper icon={PhoneActivity.icon} size={18}/> {PhoneActivity.name}</div>
-                                                <div className="text-xs text-red-500 flex justify-between items-center pr-2"><span>Limit: {formatDuration(goalsConfig[PhoneActivity.id])}</span></div>
-                                            </td>
-                                            {currentDays.map(day => <td key={day.iso} className="p-2 border-r border-red-50 last:border-r-0 text-center"><DurationInput value={getTrackerValue(PhoneActivity.id, day.iso)} onChange={(val) => updateTracker(PhoneActivity.id, day.iso, val)}/></td>)}
-                                            <td className="p-3 text-center font-bold text-red-700 border-l border-red-100 bg-red-50/20">{(() => { const total = calculateWeeklyTotal(PhoneActivity.id); const goal = goalsConfig[PhoneActivity.id]; const isOver = total > goal && goal > 0; return <span className={isOver ? "text-red-600 bg-red-100 px-2 py-1 rounded" : ""}>{formatDuration(total)}</span> })()}</td>
-                                        </tr>
-                                        {defaultActivities.map(act => {
-                                            const total = calculateWeeklyTotal(act.id);
-                                            const goal = goalsConfig[act.id];
-                                            const percent = goal > 0 ? Math.min(100, (total / goal) * 100) : 0;
-                                            return (
-                                                <tr key={act.id} className="hover:bg-gray-50 transition-colors group">
-                                                    <td className="p-3 sticky left-0 bg-white z-10 border-r shadow-sm group-hover:bg-gray-50 transition-colors">
-                                                        <div className="flex items-center gap-2 font-medium text-gray-700 mb-1"><IconWrapper icon={act.icon} size={18}/> {act.name}</div>
-                                                        <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1 overflow-hidden"><div className="bg-blue-500 h-1.5 rounded-full transition-all duration-500" style={{ width: `${percent}%` }}></div></div>
-                                                        <div className="text-[10px] text-gray-400 mt-1 flex justify-between"><span>Cel: {formatDuration(goal)}</span><span className={percent >= 100 ? "text-green-600 font-bold" : ""}>{Math.round(percent)}%</span></div>
-                                                    </td>
-                                                    {currentDays.map(day => <td key={day.iso} className="p-2 border-r border-dashed last:border-r-0 text-center"><DurationInput value={getTrackerValue(act.id, day.iso)} onChange={(val) => updateTracker(act.id, day.iso, val)}/></td>)}
-                                                    <td className="p-3 text-center font-bold text-gray-700 border-l bg-gray-50/50"><span className={percent >= 100 ? "text-green-600" : ""}>{formatDuration(total)}</span></td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )}
+              {showGoalModal && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+                      <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[80vh]">
+                          <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
+                              <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2"><IconWrapper icon={<Target size={20} />} /> Cele Tygodniowe</h3>
+                              <button onClick={() => setShowGoalModal(false)} className="text-gray-400 hover:text-gray-600"><IconWrapper icon={<X size={20} />} /></button>
+                          </div>
+                          <div className="p-6 overflow-y-auto flex-1 space-y-4">
+                              <div className="flex items-center justify-between p-3 bg-red-50 border border-red-100 rounded-lg">
+                                  <div className="flex items-center gap-3"><div className="p-2 bg-white rounded-full text-red-600 shadow-sm"><IconWrapper icon={PhoneActivity.icon} /></div><div><div className="font-bold text-gray-800">{PhoneActivity.name}</div><div className="text-xs text-red-600">Limit tygodniowy</div></div></div>
+                                  <DurationInput value={goalsConfig[PhoneActivity.id]} onChange={(val) => updateGoal(PhoneActivity.id, val)} />
+                              </div>
+                              {activities.map(act => (
+                                  <div key={act.id} className="flex items-center justify-between p-2 border-b border-gray-100 last:border-0">
+                                      <div className="flex items-center gap-3"><div className="text-gray-500"><IconWrapper icon={AVAILABLE_ICONS[act.iconKey] || AVAILABLE_ICONS['Hobby']} size={20} /></div><div className="font-medium text-gray-700">{act.name}</div></div>
+                                      <DurationInput value={goalsConfig[act.id]} onChange={(val) => updateGoal(act.id, val)} />
+                                  </div>
+                              ))}
+                          </div>
+                          <div className="p-4 border-t bg-gray-50 text-right"><button onClick={() => setShowGoalModal(false)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold">Zapisz</button></div>
+                      </div>
+                  </div>
+              )}
 
-                    {/* WIDOK: KALENDARZ */}
-                    {activeTab === 'schedule' && (
-                        <div className="animate-fade-in space-y-4">
-                            <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <div className="text-sm text-blue-800"><p className="font-bold">Import z USOS:</p><p>Wgraj plik .ics, aby zobaczyć swoje zajęcia.</p></div>
-                                <div className="flex gap-2">
-                                    <input type="file" accept=".ics" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
-                                    <button onClick={() => fileInputRef.current.click()} className="bg-white text-blue-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-blue-200 flex items-center gap-2 hover:bg-blue-50"><IconWrapper icon={<Upload size={14}/>}/> Wgraj ICS</button>
-                                    {allEvents.length > 0 && <button onClick={() => confirm("Usunąć wszystko?") && setAllEvents([])} className="bg-white text-red-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-red-200 flex items-center gap-2 hover:bg-red-50"><IconWrapper icon={<Trash2 size={14}/>}/> Wyczyść</button>}
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-7 gap-3">
-                                {currentDays.map(day => {
-                                    const events = getEventsForDay(day.iso);
-                                    const busyHours = events.reduce((acc, curr) => acc + curr.duration, 0);
+              {debugInfo && (
+                  <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 mb-4 flex items-start gap-3">
+                      <IconWrapper icon={<AlertTriangle size={20} className="mt-0.5 shrink-0" />} />
+                      <div>
+                          <p className="font-bold">Problem z plikiem</p>
+                          <p className="text-sm">{debugInfo}</p>
+                      </div>
+                  </div>
+              )}
+
+              {/* WIDOK: TRACKER (NAWYKI) */}
+              {activeTab === 'tracker' && (
+                  <div className="animate-fade-in bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                      <div className="p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                          <h3 className="font-bold text-gray-700 flex items-center gap-2"><IconWrapper icon={<Layout size={20}/>}/> Rejestr Czasu</h3>
+                          <button onClick={() => setShowManageModal(true)} className="bg-gray-700 hover:bg-gray-800 text-white px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors shadow-sm"><IconWrapper icon={<Settings size={14} />} /> Edytuj Listę</button>
+                      </div>
+                      <div className="overflow-x-auto">
+                          <table className="w-full text-sm">
+                              <thead>
+                                  <tr className="bg-gray-100 text-xs text-gray-500 uppercase">
+                                      <th className="p-3 text-left w-48 sticky left-0 bg-gray-100 z-10 border-r">Aktywność</th>
+                                      {currentDays.map(day => (
+                                          <th key={day.iso} className="p-2 text-center min-w-[100px] border-r last:border-r-0">
+                                              <div className="font-bold text-gray-700">{day.short}</div>
+                                              <div className="text-[10px] text-gray-400">{day.dateStr}</div>
+                                          </th>
+                                      ))}
+                                      <th className="p-3 text-center w-24 bg-gray-100 border-l font-bold">Suma</th>
+                                  </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-100">
+                                  {/* SEKCJA TELEFONU */}
+                                  <tr className="bg-red-50/30">
+                                      <td className="p-3 sticky left-0 bg-white z-10 border-r border-red-100">
+                                          <div className="flex items-center gap-2 font-bold text-red-800">
+                                              <IconWrapper icon={PhoneActivity.icon} size={18} /> {PhoneActivity.name}
+                                          </div>
+                                          <div className="text-xs text-red-500">Limit: {formatDuration(goalsConfig[PhoneActivity.id])}</div>
+                                      </td>
+                                      {currentDays.map(day => {
+                                          return (
+                                              <td key={day.iso} className="p-1 border-r border-red-50 last:border-r-0">
+                                                  <div className="grid grid-cols-1 gap-1 justify-items-center">
+                                                      <DurationInput value={getTrackerValue(PhoneActivity.id, day.iso)} onChange={(val) => updateTracker(PhoneActivity.id, day.iso, val)} />
+                                                  </div>
+                                              </td>
+                                          )
+                                      })}
+                                      <td className="p-3 text-center font-bold text-red-700 border-l border-red-100 bg-red-50/20">{formatDuration(calculateWeeklyTotal(PhoneActivity.id))}</td>
+                                  </tr>
+
+                                  {/* RESZTA AKTYWNOŚCI */}
+                                  {activities.map(act => {
+                                      const total = calculateWeeklyTotal(act.id);
+                                      const goal = goalsConfig[act.id];
+                                      const percent = goal > 0 ? Math.min(100, (total / goal) * 100) : 0;
+                                      return (
+                                          <tr key={act.id} className="hover:bg-gray-50">
+                                              <td className="p-3 sticky left-0 bg-white z-10 border-r">
+                                                  <div className="flex items-center gap-2 font-medium text-gray-700">
+                                                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-white" style={{background: act.color}}>
+                                                          <IconWrapper icon={AVAILABLE_ICONS[act.iconKey] || AVAILABLE_ICONS['Hobby']} size={12} />
+                                                      </div>
+                                                      {act.name}
+                                                  </div>
+                                                  <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1 overflow-hidden"><div className="bg-blue-500 h-1.5 rounded-full transition-all duration-500" style={{ width: `${percent}%`, background: act.color }}></div></div>
+                                                  <div className="text-[10px] text-gray-400 mt-1 flex justify-between"><span>Cel: {formatDuration(goal)}</span><span style={{color: act.color}} className="font-bold">{Math.round(percent)}%</span></div>
+                                              </td>
+                                              {currentDays.map(day => {
+                                                  return (
+                                                      <td key={day.iso} className="p-1 border-r border-dashed last:border-r-0">
+                                                          <div className="grid grid-cols-1 gap-1 justify-items-center">
+                                                              <DurationInput value={getTrackerValue(act.id, day.iso)} onChange={(val) => updateTracker(act.id, day.iso, val)} />
+                                                          </div>
+                                                      </td>
+                                                  )
+                                              })}
+                                              <td className="p-3 text-center font-bold text-gray-700 border-l bg-gray-50/50">{formatDuration(total)}</td>
+                                          </tr>
+                                      )
+                                  })}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              )}
+
+              {/* WIDOK: PLAN ZAJĘĆ (KALENDARZ) */}
+              {activeTab === 'schedule' && (
+                  <div className="animate-fade-in space-y-4">
+                      <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                          <div className="text-sm text-blue-800">
+                              <p className="font-bold">Kalendarz & Import:</p>
+                              <p>Zarządzaj swoimi zajęciami i planem.</p>
+                          </div>
+                          <div className="flex gap-2 flex-wrap">
+                              <button onClick={() => {setEditingEvent(null); setShowEventModal(true);}} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm flex items-center gap-2 transition-colors"><IconWrapper icon={<Plus size={14} />} /> Dodaj Zdarzenie</button>
+                              <div className="w-px h-8 bg-blue-200 mx-2 hidden sm:block"></div>
+                              <input type="file" accept=".ics" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
+                              <button onClick={() => fileInputRef.current.click()} className="bg-white text-blue-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-blue-200 flex items-center gap-2 hover:bg-blue-50">
+                                  <IconWrapper icon={<Upload size={14} />} /> Wgraj ICS
+                              </button>
+                              {allEvents.length > 0 && (
+                                  <button onClick={clearCalendar} className="bg-white text-red-600 px-4 py-2 rounded-lg text-xs font-bold shadow-sm border border-red-200 flex items-center gap-2 hover:bg-red-50">
+                                    <IconWrapper icon={<Trash2 size={14} />} /> Wyczyść Kalendarz
+                                  </button>
+                              )}
+                          </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-7 gap-3">
+                          {currentDays.map(day => {
+                              const events = getEventsForDay(day.iso);
+                              const busyHours = events.reduce((acc, curr) => acc + curr.duration, 0);
+                              
+                              return (
+                                  <div key={day.iso} className={`bg-white rounded-xl shadow-sm border ${day.dateObj.toDateString() === new Date().toDateString() ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-200'} flex flex-col h-full min-h-[400px]`}>
+                                      <div className="p-3 border-b border-gray-100 text-center bg-gray-50/50 rounded-t-xl">
+                                          <div className="text-sm font-bold text-gray-700">{day.label}</div>
+                                          <div className="text-xs text-gray-400">{day.dateStr}</div>
+                                      </div>
+                                      <div className="flex-grow p-1 relative">
+                                          {hours.map(h => (
+                                              <div key={h} className="h-10 border-b border-gray-50 text-[10px] text-gray-300 pl-1">{h}:00</div>
+                                          ))}
+                                          {events.map(evt => {
+                                              const topPos = (evt.startHour - 7) * 40 + (evt.startMin / 60 * 40);
+                                              const height = Math.max(evt.duration * 40, 20); 
+                                              const isManual = evt.isManual;
+                                              const bgColor = isManual ? (evt.color || '#f59e0b') : 'rgb(219 234 254)';
+                                              const borderColor = isManual ? 'rgba(0,0,0,0.1)' : 'rgb(37 99 235)';
+                                              const textColor = isManual ? 'white' : 'rgb(30 58 138)';
+                                              const extraStyle = isManual ? { color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.2)' } : {};
+
+                                              return (
+                                                  <div 
+                                                      key={evt.id}
+                                                      onClick={() => setSelectedEvent(evt)}
+                                                      className={`absolute left-1 right-1 rounded p-1 text-xs shadow-sm overflow-hidden z-10 hover:z-20 hover:scale-[1.02] transition-transform cursor-pointer hover:opacity-90 border-l-4`}
+                                                      style={{ top: `${topPos}px`, height: `${height}px`, background: bgColor, borderColor: borderColor, color: textColor, ...extraStyle }}
+                                                      title="Kliknij, aby zobaczyć szczegóły"
+                                                  >
+                                                      <div className="font-bold text-inherit leading-tight truncate">{evt.name}</div>
+                                                      <div className="text-[10px] opacity-90 mt-0.5">{evt.startHour}:{String(evt.startMin).padStart(2,'0')} ({evt.duration.toFixed(1)}h)</div>
+                                                  </div>
+                                              );
+                                          })}
+                                      </div>
+                                      <div className="p-2 text-center text-xs text-gray-500 bg-gray-50 rounded-b-xl">
+                                          Zajęcia: {busyHours.toFixed(1)}h
+                                      </div>
+                                  </div>
+                              );
+                          })}
+                      </div>
+                  </div>
+              )}
+
+              {/* WIDOK: PODSUMOWANIA */}
+              {activeTab === 'summary' && (
+                  <div className="animate-fade-in grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      
+                      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                              <IconWrapper icon={<TrendingUp size={20} className="text-blue-600" />} />
+                              Podsumowanie Tygodnia
+                          </h3>
+                          <p className="text-sm text-gray-500 mb-6 border-b pb-4">
+                              Tydzień: {formatDate(currentWeekStart)} - {formatDate(addDays(currentWeekStart, 6))}
+                          </p>
+                          
+                          <div className="mb-6 p-4 bg-red-50 rounded-lg border border-red-100">
+                                {(() => {
+                                    const total = calculateWeeklyTotal(PhoneActivity.id);
+                                    const goal = goalsConfig[PhoneActivity.id];
+                                    return <SummaryBar label={PhoneActivity.name} plan={goal} act={total} isPhone={true} />;
+                                })()}
+                          </div>
+
+                          <div className="space-y-4">
+                              {activities.map(act => {
+                                  const total = calculateWeeklyTotal(act.id);
+                                  const goal = goalsConfig[act.id];
+                                  if (total === 0 && goal === 0) return null;
+                                  return <SummaryBar key={act.id} label={act.name} plan={goal} act={total} isPhone={false} />;
+                              })}
+                          </div>
+                      </div>
+
+                      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                              <IconWrapper icon={<CalendarIcon size={20} className="text-purple-600" />} />
+                              Podsumowanie Miesiąca
+                          </h3>
+                          <p className="text-sm text-gray-500 mb-6 border-b pb-4">
+                              Miesiąc: {getMonthName(currentWeekStart)}
+                          </p>
+
+                          <div className="mb-6 p-4 bg-red-50 rounded-lg border border-red-100">
+                                {(() => {
+                                    const monthlyTotal = calculateMonthlyTotal(PhoneActivity.id, currentWeekStart);
                                     return (
-                                        <div key={day.iso} className={`bg-white rounded-xl shadow-sm border ${day.dateObj.toDateString() === new Date().toDateString() ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-200'} flex flex-col h-full min-h-[300px]`}>
-                                            <div className="p-3 border-b border-gray-100 text-center bg-gray-50/50 rounded-t-xl"><div className="text-sm font-bold text-gray-700">{day.label}</div><div className="text-xs text-gray-400">{day.dateStr}</div></div>
-                                            <div className="flex-grow p-1 relative">
-                                                {hours.map(h => <div key={h} className="h-10 border-b border-gray-50 text-[10px] text-gray-300 pl-1">{h}:00</div>)}
-                                                {events.map(evt => {
-                                                    const topPos = (evt.startHour - 7) * 40 + (evt.startMin / 60 * 40);
-                                                    const height = Math.max(evt.duration * 40, 20);
-                                                    return (
-                                                        <div key={evt.id} className="absolute left-1 right-1 bg-blue-100 border-l-4 border-blue-600 rounded p-1 text-xs shadow-sm overflow-hidden z-10 hover:z-20 hover:scale-[1.02] transition-transform" style={{ top: `${topPos}px`, height: `${height}px` }} title={evt.name}>
-                                                            <div className="font-bold text-blue-900 leading-tight truncate">{evt.name}</div>
-                                                            <div className="text-[10px] text-blue-700 mt-0.5">{evt.startHour}:{evt.startMin < 10 ? '0'+evt.startMin : evt.startMin}</div>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                            <div className="p-2 text-center text-xs text-gray-500 bg-gray-50 rounded-b-xl">Zajęcia: {busyHours.toFixed(1)}h</div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="font-bold text-red-800">{PhoneActivity.name}</span>
+                                            <span className="font-bold">{formatDuration(monthlyTotal)}</span>
                                         </div>
                                     );
-                                })}
-                            </div>
-                        </div>
-                    )}
+                                })()}
+                          </div>
 
-                    {/* WIDOK: RAPORTY (TYGODNIOWE, MIESIĘCZNE, CAŁOŚCIOWE) */}
-                    {activeTab === 'summary' && (
-                        <div className="animate-fade-in grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            {/* 1. TYGODNIOWE */}
-                            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><IconWrapper icon={<TrendingUp size={20} className="text-blue-600"/>}/> Obecny Tydzień</h3>
-                                <p className="text-xs text-gray-400 mb-4">{formatDate(currentWeekStart)} - {formatDate(addDays(currentWeekStart, 6))}</p>
-                                <div className="space-y-6">
-                                    {[PhoneActivity, ...defaultActivities].map(act => {
-                                        const total = calculateWeeklyTotal(act.id);
-                                        const goal = goalsConfig[act.id];
-                                        if (goal === 0 && total === 0) return null;
-                                        const isPhone = act.id === 'phone';
-                                        const percent = goal > 0 ? (total / goal) * 100 : 0;
-                                        let barColor = isPhone ? (total > goal ? "bg-red-500" : "bg-green-500") : (percent >= 100 ? "bg-green-500" : "bg-blue-500");
-                                        return (
-                                            <div key={act.id}>
-                                                <div className="flex justify-between text-sm mb-1 font-medium">
-                                                    <span className="flex items-center gap-2"><IconWrapper icon={act.icon} size={16}/> {act.name}</span>
-                                                    <span>{formatDuration(total)} <span className="text-gray-400">/ {formatDuration(goal)}</span></span>
-                                                </div>
-                                                <div className="w-full bg-gray-100 rounded-full h-2">
-                                                    <div className={`h-2 rounded-full ${barColor} transition-all duration-700`} style={{ width: `${Math.min(100, percent)}%` }}></div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
+                          <div className="space-y-4">
+                              {activities.map(act => {
+                                  const monthlyTotal = calculateMonthlyTotal(act.id, currentWeekStart);
+                                  if (monthlyTotal === 0) return null;
+                                  return (
+                                      <div key={act.id} className="flex justify-between text-sm border-b border-gray-50 pb-2">
+                                          <span className="flex items-center gap-2 text-gray-600">
+                                              <div className="w-2 h-2 rounded-full" style={{background:act.color}}></div>
+                                              {act.name}
+                                          </span>
+                                          <span className="font-bold">{formatDuration(monthlyTotal)}</span>
+                                      </div>
+                                  );
+                              })}
+                          </div>
+                      </div>
 
-                            {/* 2. MIESIĘCZNE */}
-                            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><IconWrapper icon={<CalendarDays size={20} className="text-purple-600"/>}/> Miesiąc: {getMonthName(currentWeekStart)}</h3>
-                                <p className="text-xs text-gray-400 mb-4">Suma godzin w tym miesiącu</p>
-                                <div className="space-y-4">
-                                    {[PhoneActivity, ...defaultActivities].map(act => {
-                                        const monthlyTotal = calculateMonthlyTotal(act.id, currentWeekStart);
-                                        if (monthlyTotal === 0) return null;
-                                        return (
-                                            <div key={act.id} className="flex justify-between items-center text-sm border-b border-gray-50 pb-2">
-                                                <span className="flex items-center gap-2 text-gray-600"><IconWrapper icon={act.icon} size={16}/> {act.name}</span>
-                                                <span className="font-bold text-gray-800">{formatDuration(monthlyTotal)}</span>
-                                            </div>
-                                        )
-                                    })}
-                                    {/* Jeśli brak danych */}
-                                    {[PhoneActivity, ...defaultActivities].every(a => calculateMonthlyTotal(a.id, currentWeekStart) === 0) && 
-                                        <div className="text-center text-gray-400 text-sm py-4">Brak danych w tym miesiącu</div>
-                                    }
-                                </div>
-                            </div>
+                      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                              <IconWrapper icon={<PieChart size={20} className="text-orange-600" />} />
+                              Całościowe (All Time)
+                          </h3>
+                          {(() => {
+                              const chartData = [PhoneActivity, ...activities].map(act => ({
+                                  label: act.name,
+                                  value: calculateAllTimeTotal(act.id),
+                                  color: act.color || '#ccc'
+                              })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
 
-                            {/* 3. CAŁOŚCIOWE (PIE CHART) */}
-                            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><IconWrapper icon={<PieChart size={20} className="text-orange-600"/>}/> Całościowe (All Time)</h3>
-                                <div className="flex flex-col items-center">
-                                    {(() => {
-                                        // Przygotowanie danych do wykresu (bez telefonu, bo to strata czasu, zazwyczaj nie chcemy tego na wykresie "produktywności", ale user chciał "na co poświęcam czas", więc dajemy wszystko)
-                                        // Opcjonalnie można wyrzucić telefon z wykresu kołowego, jeśli ma on pokazywać tylko "dobre" rzeczy. 
-                                        // Tutaj damy wszystko oprócz telefonu do "produktywności", a telefon osobno, lub wszystko razem. Dajmy wszystko.
-                                        const chartData = [PhoneActivity, ...defaultActivities].map(act => ({
-                                            label: act.name,
-                                            value: calculateAllTimeTotal(act.id),
-                                            color: act.color || '#ccc'
-                                        })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
+                              return (
+                                  <>
+                                      <SimplePieChart data={chartData} />
+                                      <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                                          <div className="text-xs text-gray-500 uppercase tracking-wide">Łączny czas w aplikacji</div>
+                                          <div className="text-2xl font-black text-gray-800">
+                                              {formatDuration([PhoneActivity, ...activities].reduce((acc, act) => acc + calculateAllTimeTotal(act.id), 0))}
+                                          </div>
+                                      </div>
+                                  </>
+                              )
+                          })()}
+                      </div>
 
-                                        return <SimplePieChart data={chartData} />
-                                    })()}
-                                </div>
-                                <div className="mt-6 pt-4 border-t border-gray-100 text-center">
-                                    <div className="text-xs text-gray-500 uppercase tracking-wide">Łączny czas w aplikacji</div>
-                                    <div className="text-2xl font-black text-gray-800">
-                                        {formatDuration([PhoneActivity, ...defaultActivities].reduce((acc, act) => acc + calculateAllTimeTotal(act.id), 0))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        }
+                  </div>
+              )}
+      
+      <div className="mt-4 text-center text-gray-400 text-xs">
+          Wszystkie dane są zapisywane automatycznie w Twojej przeglądarce.
+      </div>
+    </div>
+  );
+}
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<WeeklyPlanner />);
